@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>service-worker</title>
+    <link href="//static.iqiyi.com/css/ppsshow/2.0/style/base.css?v=20190621143926" rel="stylesheet"/>
+    <link href="//static.iqiyi.com/css/ppsshow/2.0/style/room.css?v=20190621143926" rel="stylesheet"/>
+    <link rel="preload" href="//static.iqiyi.com/css/ppsshow/2.0/style/xiu_media.css?v=20190621143926" as="style">
+    <link rel="preload" href="//static.iqiyi.com/js/ppsshow/plugin/xflv.js?v=20190621143926" crossorigin="anonymous" as="script">
+</head>
+<body>
+    <p>test for service worker</p>
+</body>
+</html>
+<script src="//static.iqiyi.com/js/ppsshow/js-libs/qx.lib.js" crossorigin="anonymous"></script>
+<script data-js-version="20190621143926" data-flash-version="20181102184307" src="//static.iqiyi.com/js/ppsshow/modules/qx.js?v=20190621143926" crossorigin="anonymous"></script>
+<script>
+window.jQuery || window.Backbone || window.QX || _qosPush({msg: "静态资源加载失败"});
+window._ST = new Date().getTime();
+QX.core.loader("//static.iqiyi.com/js/ppsshow/modules/qx.ui.js?v=20190621143926", function () {
+    QX.core.loadModules(function () {
+        var comScore = QX.core.loader("//static.iqiyi.com/js/ppsshow/js-libs/comScoreCommon.js")
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?0f5556da646371aeac76715b71f140dd";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    });
+});
+</script>
+<script src="app.js"></script>
