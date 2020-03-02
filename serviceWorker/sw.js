@@ -2,12 +2,9 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open('v1').then(function(cache) {
             return cache.addAll([
-                '//static.iqiyi.com/css/ppsshow/2.0/style/base.css',
-                '//static.iqiyi.com/css/ppsshow/2.0/style/room.css',
-                '//static.iqiyi.com/css/ppsshow/2.0/style/xiu_media.css',
-                '//static.iqiyi.com/js/ppsshow/plugin/xflv.js',
-                '//static.iqiyi.com/js/ppsshow/js-libs/qx.lib.js',
-                '//static.iqiyi.com/js/ppsshow/modules/qx.js'
+                '//test-static-x.pps.tv/show_asset/2.0/style/base.css',
+                '//test-static-x.pps.tv/show_asset/2.0/style/room.css',
+                '//test-static-x.pps.tv/show_asset/2.0/style/xiu_media.css'
             ]);
         })
     );
