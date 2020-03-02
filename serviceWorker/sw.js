@@ -5,7 +5,7 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
             return cache.addAll([
-                // 'normalize.css',
+                'normalize.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
             ]);
@@ -20,14 +20,12 @@ self.addEventListener('activate', event => {
         return CURRENT_CACHES[key];
     });
     event.waitUntil(
-        caches.open(CACHE_NAME).then(cache => {
-            return cache.keys().then(cacheNames => {
-                return Promise.all(cacheNames.map(cacheName => {
-                    if ([CACHE_NAME].indexOf(cacheName) === -1) {
-                        return cache.delete(cacheName);
-                    }
-                }));
-            });
+        caches.keys().then(cacheNames => {
+            return Promise.all(cacheNames.map(cacheName => {
+                if ([CACHE_NAME].indexOf(cacheName) === -1) {
+                    return cache.delete(cacheName);
+                }
+            }));
         }).then(() => {
             return self.clients.claim();
         })
