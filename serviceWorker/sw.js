@@ -1,11 +1,35 @@
+const CACHE_VERSION = 1;
+const CACHE_NAME = `cache_v${CACHE_VERSION}`;
+
 self.addEventListener('install', function(event) {
     event.waitUntil(
-        caches.open('v2').then(function(cache) {
+        caches.open(CACHE_NAME).then(cache => {
             return cache.addAll([
-                'normalize.css',
+                // 'normalize.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
             ]);
+        }).then(() => {
+            return self.skipWaiting();
+        }).catch()
+    );
+});
+
+self.addEventListener('activate', event => {
+    const expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
+        return CURRENT_CACHES[key];
+    });
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(cache => {
+            return cache.keys().then(cacheNames => {
+                return Promise.all(cacheNames.map(cacheName => {
+                    if ([CACHE_NAME].indexOf(cacheName) === -1) {
+                        return cache.delete(cacheName);
+                    }
+                }));
+            });
+        }).then(() => {
+            return self.clients.claim();
         })
     );
 });
@@ -33,17 +57,4 @@ self.addEventListener('fetch', function(event) {
         // }
         return response || fetch(event.request);
     }));
-});
-
-self.addEventListener('activate', function(event) {
-    var cacheWhitelist = ['v2'];
-    event.waitUntil(
-        caches.keys().then(function(keyList) {
-            return Promise.all(keyList.map(function(key) {
-                if (cacheWhitelist.indexOf(key) === -1) {
-                    return caches.delete(key);
-                }
-            }));
-        })
-    );
 });
