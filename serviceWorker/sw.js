@@ -1,6 +1,6 @@
 self.addEventListener('install', function(event) {
     event.waitUntil(
-        caches.open('v1').then(function(cache) {
+        caches.open('v2').then(function(cache) {
             return cache.addAll([
                 'normalize.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
@@ -33,4 +33,17 @@ self.addEventListener('fetch', function(event) {
         // }
         return response || fetch(event.request);
     }));
+});
+
+self.addEventListener('activate', function(event) {
+    var cacheWhitelist = ['v2'];
+    event.waitUntil(
+        caches.keys().then(function(keyList) {
+            return Promise.all(keyList.map(function(key) {
+                if (cacheWhitelist.indexOf(key) === -1) {
+                    return caches.delete(key);
+                }
+            }));
+        });
+    );
 });
