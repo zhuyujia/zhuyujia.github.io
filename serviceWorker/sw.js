@@ -2,9 +2,9 @@ self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open('v1').then(function(cache) {
             return cache.addAll([
-                '//test-static-x.pps.tv/show_asset/2.0/style/base.css',
-                '//test-static-x.pps.tv/show_asset/2.0/style/room.css',
-                '//test-static-x.pps.tv/show_asset/2.0/style/xiu_media.css'
+                'normalize.css',
+                '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
+                '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
             ]);
         })
     );
