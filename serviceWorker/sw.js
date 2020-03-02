@@ -16,14 +16,11 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', event => {
-    const expectedCacheNames = Object.keys(CURRENT_CACHES).map(function(key) {
-        return CURRENT_CACHES[key];
-    });
     event.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(cacheName => {
                 if ([CACHE_NAME].indexOf(cacheName) === -1) {
-                    return cache.delete(cacheName);
+                    return caches.delete(cacheName);
                 }
             }));
         }).then(() => {
