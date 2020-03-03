@@ -1,9 +1,9 @@
 const cacheList = [
-    'app.js',
+    '//zhuyujia.github.io/serviceWorker/app.js',
     '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
     '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js',
 ];
-const CACHE_VERSION = 10; // 可以是时间戳
+const CACHE_VERSION = 11; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
 
 self.addEventListener('install', event => {
@@ -34,13 +34,11 @@ self.addEventListener('activate', event => {
 });
   
 self.addEventListener('fetch', event => {
-    console.log(event.request);
     const url = event.request.url.replace(/(http:|https:)/g, '');
     if (cacheList.includes(url)) {
         event.respondWith(
             caches.match(event.request).then(response => {
-                if (response) return response;
-                // return response || fetch(event.request);
+                return response || fetch(event.request);
             }).catch(err => {
                 console.log(err);
             })
