@@ -1,15 +1,15 @@
-const CACHE_VERSION = 5; // 可以是时间戳
+const CACHE_VERSION = 6; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
+const cacheList = [
+    'app.js',
+    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
+    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js',
+];
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll([
-                'normalize.css',
-                'app.js',
-                '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
-                '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
-            ]);
+            return cache.addAll(cacheList);
         }).then(() => {
             return self.skipWaiting(); // 新sw安装成功后跳过等待，立即激活，替换老的sw
         }).catch(err => {
