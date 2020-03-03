@@ -1,5 +1,8 @@
-import cacheList from './cacheList.js';
-
+const cacheList = [
+    'app.js',
+    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
+    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js',
+];
 const CACHE_VERSION = 7; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
 
