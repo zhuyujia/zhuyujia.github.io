@@ -1,10 +1,6 @@
+import cacheList from './cacheList.js';
 const CACHE_VERSION = 6; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
-const cacheList = [
-    'app.js',
-    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
-    '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js',
-];
 
 self.addEventListener('install', function(event) {
     event.waitUntil(
