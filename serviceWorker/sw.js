@@ -1,4 +1,4 @@
-const CACHE_VERSION = 4; // 可以是时间戳
+const CACHE_VERSION = 5; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
 
 self.addEventListener('install', function(event) {
