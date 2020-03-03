@@ -1,4 +1,4 @@
-const CACHE_VERSION = 1;
+const CACHE_VERSION = 3; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
 
 self.addEventListener('install', function(event) {
@@ -6,12 +6,15 @@ self.addEventListener('install', function(event) {
         caches.open(CACHE_NAME).then(cache => {
             return cache.addAll([
                 'normalize.css',
+                'app.js',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.css',
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
             ]);
         }).then(() => {
-            return self.skipWaiting();
-        }).catch()
+            return self.skipWaiting(); // 可以阻止等待，让新 SW 安装成功后立即激活
+        }).catch(err => {
+            console.log(err);
+        })
     );
 });
 
@@ -24,7 +27,7 @@ self.addEventListener('activate', event => {
                 }
             }));
         }).then(() => {
-            return self.clients.claim();
+            // return self.clients.claim();
         })
     );
 });
