@@ -1,4 +1,4 @@
-const CACHE_VERSION = 3; // 可以是时间戳
+const CACHE_VERSION = 4; // 可以是时间戳
 const CACHE_NAME = `cache_v${CACHE_VERSION}`;
 
 self.addEventListener('install', function(event) {
@@ -11,7 +11,7 @@ self.addEventListener('install', function(event) {
                 '//unpkg.com/mescroll.js@1.4.1/mescroll.min.js'
             ]);
         }).then(() => {
-            return self.skipWaiting(); // 可以阻止等待，让新 SW 安装成功后立即激活
+            return self.skipWaiting(); // 新sw安装成功后跳过等待，立即激活，替换老的sw
         }).catch(err => {
             console.log(err);
         })
@@ -19,15 +19,14 @@ self.addEventListener('install', function(event) {
 });
 
 self.addEventListener('activate', event => {
+    // 删除旧的缓存，只保留最新的缓存
     event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(cacheNames.map(cacheName => {
-                if ([CACHE_NAME].indexOf(cacheName) === -1) {
-                    return caches.delete(cacheName);
+        caches.keys().then(keys => {
+            return Promise.all(keys.map(key => {
+                if (![CACHE_NAME].includes(key)) {
+                    return caches.delete(key);
                 }
             }));
-        }).then(() => {
-            // return self.clients.claim();
         })
     );
 });
