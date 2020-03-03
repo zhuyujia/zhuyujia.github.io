@@ -59,6 +59,6 @@ self.addEventListener('fetch', event => {
             return response || fetch(event.request);
         }).catch(err => {
             console.log(err);
-        });
+        })
     );
 });
