@@ -1,2 +1,2 @@
 theme: jekyll-theme-architect
-permalink: none
+permalink: /:year/:month/:title.output_ext
